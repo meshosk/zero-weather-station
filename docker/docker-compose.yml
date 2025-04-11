@@ -1,0 +1,6 @@
+services:
+  zeroweatherstation:
+    image: zeroweatherstation
+    build:
+      context: .
+      dockerfile: ./Dockerfile
