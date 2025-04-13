@@ -4,3 +4,4 @@ pandas
 retry_requests
 pillow
 numpy
+bleak
