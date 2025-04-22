@@ -131,3 +131,10 @@ dmypy.json
 cython_debug/
 
 __pycache__
+
+!.gitkeep
+
+export/image*
+assets/tmp/*
+
+.DS_Store
