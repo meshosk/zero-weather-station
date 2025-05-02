@@ -35,5 +35,28 @@ def capture_screenshot_playwright(url, output_file='screenshot.png'):
         browser.close()
 
 
+def crop_image(input_image_path, output_image_path, coords):
+    """
+    Extract a portion of an image based on coordinates
+    
+    Args:
+        input_image_path (str): Path to the source image
+        output_image_path (str): Where to save the cropped image
+        coords (tuple): Cropping coordinates as (left, top, right, bottom)
+    """
+    # Open the image
+    with Image.open(input_image_path) as img:
+        # Crop the image using coordinates
+        cropped_img = img.crop(coords)
+        
+        # Create output directory if needed
+        os.makedirs(os.path.dirname(output_image_path), exist_ok=True)
+        
+        # Save the cropped image
+        cropped_img.save(output_image_path)
+        print(f"Cropped image saved to {output_image_path}")
+        return cropped_img
+
+
 capture_screenshot_playwright("https://www.ventusky.com/?p=48.58;19.53;7&l=radar", "export/text.png")
     
