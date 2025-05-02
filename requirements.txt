@@ -5,3 +5,4 @@ retry_requests
 pillow
 numpy
 bleak
+playwright
