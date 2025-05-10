@@ -34,6 +34,26 @@ def capture_screenshot_playwright(url, output_file='screenshot.png'):
         # Close browser
         browser.close()
 
+def convert_image_to_16_gray(input_image_path, output_image_path):
+    """
+    Convert an image to 16 shades of gray and save it
+    
+    Args:
+        input_image_path (str): Path to the source image
+        output_image_path (str): Where to save the converted image
+    """
+    # Open the image
+    with Image.open(input_image_path).convert("L") as img:
+        # Reduce to 16 shades of gray
+        img_16_gray = img.point(lambda x: (x // 16) * 16)
+        
+        # Create output directory if needed
+        os.makedirs(os.path.dirname(output_image_path), exist_ok=True)
+        
+        # Save the converted image
+        img_16_gray.save(output_image_path)
+        print(f"Image converted to 16 shades of gray and saved to {output_image_path}")
+        return img_16_gray
 
 def crop_image(input_image_path, output_image_path, coords):
     """
@@ -58,5 +78,8 @@ def crop_image(input_image_path, output_image_path, coords):
         return cropped_img
 
 
+
+
 capture_screenshot_playwright("https://www.ventusky.com/?p=48.58;19.53;7&l=radar", "export/text.png")
-    
+
+convert_image_to_16_gray("export/text.png", "export/text_16_gray.png")    

@@ -132,9 +132,9 @@ cython_debug/
 
 __pycache__
 
-!.gitkeep
-
-export/image*
+export/*
 assets/tmp/*
 
 .DS_Store
+
+!.gitkeep
