@@ -15,7 +15,18 @@ def capture_screenshot_playwright(url, output_file='screenshot.png'):
     """
     with sync_playwright() as p:
         # Launch browser
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True,
+            args=[
+                '--no-sandbox',                      # bezpečnostný sandbox vypnutý – na slabých systémoch to znižuje overhead
+                '--disable-dev-shm-usage',           # vyhýba sa /dev/shm, čo môže byť malé na RPi
+                '--disable-gpu',                     # RPi aj tak nemá podporovaný GPU compositing pre Chromium
+                '--disable-software-rasterizer',     # vypne fallback pre GPU veci – šetrí CPU
+                '--no-zygote',                       # znižuje počet procesov (menšia záťaž)
+                '--disable-features=SitePerProcess', # menšia izolácia medzi tabuľkami, menej procesov
+                '--disable-background-networking',   # menej zbytočných requestov
+                '--mute-audio',                      # na RPi to fakt nepotrebuješ
+            ]
+            )
         page = browser.new_page(viewport={"width": 1920, "height": 1080})
         
         # Navigate to the page
@@ -28,7 +39,7 @@ def capture_screenshot_playwright(url, output_file='screenshot.png'):
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         
         # Take screenshot
-        page.screenshot(path=output_file, full_page=True)
+        page.screenshot(path=output_file, full_page=False, timeout=120000)
         print(f"Screenshot saved to {output_file}")
         
         # Close browser
@@ -79,7 +90,6 @@ def crop_image(input_image_path, output_image_path, coords):
 
 
 
-
+# capture_screenshot_playwright("https://www.dsl.sk", "export/text.png")
 capture_screenshot_playwright("https://www.ventusky.com/?p=48.58;19.53;7&l=radar", "export/text.png")
-
-convert_image_to_16_gray("export/text.png", "export/text_16_gray.png")    
+# convert_image_to_16_gray("export/text.png", "export/text_16_gray.png")    
