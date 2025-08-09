@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 
 class Epaper():
      
-     def __init__(self, json_file_path: str):
+     def __init__(self):
           # init display, change const params or attrinbs to fit your display
           # size of display is auto detected
           self.display = AutoEPDDisplay(vcom=-1.56, spi_hz=24000000) 
@@ -24,7 +24,7 @@ class Epaper():
         # restricitng image size. Rendered image on display will not exceed its dimensions
         image.thumbnail(dims)
         # this sets up possition of image on screenn
-        paste_coords = [dims[i] - img.size[i] for i in (0,1)]  # align image with bottom of display
+        paste_coords = [dims[i] - image.size[i] for i in (0,1)]  # align image with bottom of display
         self.display.frame_buf.paste(image, paste_coords)
 
         self.display.draw_full(constants.DisplayModes.GC16)
