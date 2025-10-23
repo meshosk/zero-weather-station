@@ -41,6 +41,13 @@ class Epaper():
           labels, num = label(mask)
           boxes = find_objects(labels)
 
+          # Ak nie sú žiadne zmeny, neprekresľuj
+          if not any(box is not None for box in boxes):
+              print("Žiadne zmeny na displeji, prekreslenie sa nespustí.")
+              return
+
+          dims = (self.display.width, self.display.height)
+
           for box in boxes:
               if box is not None:
                   y0, y1 = box[0].start, box[0].stop
