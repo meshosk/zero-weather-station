@@ -1,6 +1,6 @@
-from IT8951.interface import EPD
-from IT8951.display import AutoEPDDisplay
-from IT8951 import constants
+from IT8951.src.IT8951.interface import EPD
+from IT8951.src.IT8951.display import AutoEPDDisplay, VirtualEPDDisplay
+from IT8951.src.IT8951 import constants
 
 import numpy as np
 from PIL import Image, ImageDraw
@@ -11,6 +11,7 @@ class Epaper():
           # init display, change const params or attrinbs to fit your display
           # size of display is auto detected
           self.display = AutoEPDDisplay(vcom=-1.56, spi_hz=24000000) 
+         # self.display = VirtualEPDDisplay()
 
      def fillScreen(self, color=0xFF):
           # def cleat whole display white

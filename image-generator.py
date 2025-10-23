@@ -41,8 +41,8 @@ imgDraw.text( [20,970], f"meniny: {namesdayFinder.find_nameday(datetime.now().da
 
 
 # store the image
-# img.save("export/image.png")
+img.save("export/image.png")
 
 
-ep = Epaper()
-ep.drawImage(img)
+#ep = Epaper()
+#ep.drawImage(img)

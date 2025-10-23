@@ -3,15 +3,21 @@
 Warn: Code generted wtih use of copilot (yeah, i'm lazy to do basic stuff...)
 
 
+# How to docker
 Project consist of multiple parts that plyat together.
 
+```
+docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash`
+```
 
+# Setup
+To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups `IT8951` submodule.
 
-`docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash`
-
+```
+sh ./install.sh
+```
 
 # Waveshare 7.8" HD e-ink make-it-run steps for zero 2W
-
 This should work on other devices too.
 
 1. enable SPI in `sudo raspi-config` no other addition to `/boot/config.txt`
