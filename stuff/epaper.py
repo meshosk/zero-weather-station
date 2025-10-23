@@ -35,7 +35,8 @@ class Epaper():
           # first get difference image
           diff_img = ImageChops.difference(imageActual, imageNew)
           diff_np = np.array(diff_img)
-          gray = diff_np[:, :, 0]  # použijeme len červený kanál (pre čiernobiely obrázok)
+          # Ak je diff_np 2D (L mode), použijeme priamo, inak použijeme len červený kanál
+          gray = diff_np if diff_np.ndim == 2 else diff_np[:, :, 0]
           mask = gray > 0  # maska zmenených pixelov
           labels, num = label(mask)
           boxes = find_objects(labels)
@@ -50,4 +51,4 @@ class Epaper():
                   self.display.frame_buf.paste(crop, (x0, y0))
 
           # Po všetkých zmenách vykreslíme len zmenené oblasti
-          self.display.draw_full(DisplayModes.GLD16)
+          self.display.draw_full(DisplayModes.GC16)
