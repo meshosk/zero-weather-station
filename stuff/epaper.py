@@ -46,8 +46,6 @@ class Epaper():
               print("Žiadne zmeny na displeji, prekreslenie sa nespustí.")
               return
 
-          dims = (self.display.width, self.display.height)
-
           for box in boxes:
               if box is not None:
                   y0, y1 = box[0].start, box[0].stop
@@ -58,4 +56,4 @@ class Epaper():
                   self.display.frame_buf.paste(crop, (x0, y0))
 
           # Po všetkých zmenách vykreslíme len zmenené oblasti
-          self.display.draw_full(DisplayModes.GC16)
+          self.display.draw_full(DisplayModes.GLD16)
