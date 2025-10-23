@@ -10,7 +10,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install --upgrade pip setuptools wheel
-pip install spidev numpy Pillow
+pip install spidev numpy pillow scipy
 
 # this should be pulled as submodule For cas it was not uncomment line below
 # git clone https://github.com/GregDMeyer/IT8951
@@ -19,7 +19,7 @@ cd IT8951
 pip install ./[rpi]
 cd ..
 
-pip install pytest-playwright
+pip install pytest-playwrightpip3 install scipy
 playwright install-deps
-playwright install chromium
+playwright install chromiums
 

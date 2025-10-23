@@ -9,6 +9,7 @@ from datetime import datetime
 from stuff.namesday.nameday import NamedayFinder, NamedayFinderLanguage
 
 from stuff.epaper import Epaper
+import os
 
 
 
@@ -40,9 +41,18 @@ imgDraw.text( [20,970], f"meniny: {namesdayFinder.find_nameday(datetime.now().da
 
 
 
-# store the image
-img.save("export/image.png")
+ep = Epaper()
 
+image_path = "export/image.png"
 
-#ep = Epaper()
-#ep.drawImage(img)
+if not os.path.exists(image_path):
+    # Ak neexistuje starý obrázok, vykresli aktuálny obrázok na epapier
+    ep.drawImage(img)
+    # store the image
+else:
+    # Ak existuje starý obrázok, načítaj ho a vykresli len diff
+    old_img = Image.open(image_path).convert("L")
+    ep.drawImageDiff(old_img, img)
+
+# ulozenie aktualne zobrazeneho obrazka 
+img.save(image_path)
