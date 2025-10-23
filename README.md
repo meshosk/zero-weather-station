@@ -58,3 +58,11 @@ display.frame_buf.paste(img, paste_coords)
 
 display.draw_full(constants.DisplayModes.GC16)
 ```
+# How to run it?
+
+Just run `image-generator.py` with env in cron every minute like this:
+
+```
+* * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python image-generator.py
+```
+
