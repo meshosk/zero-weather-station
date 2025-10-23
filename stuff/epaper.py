@@ -1,6 +1,6 @@
-from IT8951.src.IT8951.interface import EPD
-from IT8951.src.IT8951.display import AutoEPDDisplay, VirtualEPDDisplay
-from IT8951.src.IT8951 import constants
+from IT8951.interface import EPD
+from IT8951.display import AutoEPDDisplay, VirtualEPDDisplay
+from IT8951 import constants
 
 import numpy as np
 from PIL import Image, ImageDraw
