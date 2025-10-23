@@ -13,6 +13,7 @@ import os
 
 
 
+
 # the resolution of the resulting image
 width, height = 1872, 1404
 # here put your language code. note that the language code is not the same as the country code 
@@ -28,7 +29,7 @@ namesdayFinder = NamedayFinder("stuff/namesday/nameday.json")
 img = Image.new("L", (width, height), color=255)
 imgDraw = ImageDraw.Draw(img)
 
-# first show the clock
+# first show the clock 
 
 smallFont = ImageFont.truetype("assets/fonts/raela-grotesque/RaelaGrotesqueLight-0v1ER.ttf", 100)
 mediumFont = ImageFont.truetype("assets/fonts/raela-grotesque/RaelaGrotesqueLight-0v1ER.ttf", 250)
@@ -40,19 +41,17 @@ imgDraw.text( [20, 700], get_date(days_array), font=mediumFont, fill="#696868")
 imgDraw.text( [20,970], f"meniny: {namesdayFinder.find_nameday(datetime.now().day, datetime.now().month, language)}", font=smallFont, fill="#949492")
 
 
+image_path = "export/image.png"
 
 ep = Epaper()
 
-image_path = "export/image.png"
 
-if not os.path.exists(image_path):
-    # Ak neexistuje starý obrázok, vykresli aktuálny obrázok na epapier
-    ep.drawImage(img)
-    # store the image
-else:
-    # Ak existuje starý obrázok, načítaj ho a vykresli len diff
-    old_img = Image.open(image_path).convert("L")
-    ep.drawImageDiff(old_img, img)
+if os.path.exists(image_path):
+    # this loads previous frame into new instance. Cron runs this script every 1 minute
+    # if the image exists
+    ep.display.prev_frame = Image.open(image_path).convert("L")
 
-# ulozenie aktualne zobrazeneho obrazka 
+# draw with partial redraw
+ep.drawImage(img)
+# store new frame as previous
 img.save(image_path)
