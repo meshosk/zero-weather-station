@@ -1,9 +1,10 @@
 from IT8951.interface import EPD
 from IT8951.display import AutoEPDDisplay, VirtualEPDDisplay
-from IT8951 import constants
+from IT8951.constants import DisplayModes
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageChops
+from scipy.ndimage import label, find_objects
 
 class Epaper():
      
@@ -28,4 +29,25 @@ class Epaper():
         paste_coords = [dims[i] - image.size[i] for i in (0,1)]  # align image with bottom of display
         self.display.frame_buf.paste(image, paste_coords)
 
-        self.display.draw_full(constants.DisplayModes.GC16)
+        self.display.draw_full(DisplayModes.GC16)
+
+     def drawImageDiff(self, imageActual: Image, imageNew: Image):
+          # first get difference image
+          diff_img = ImageChops.difference(imageActual, imageNew)
+          diff_np = np.array(diff_img)
+          gray = diff_np[:, :, 0]  # použijeme len červený kanál (pre čiernobiely obrázok)
+          mask = gray > 0  # maska zmenených pixelov
+          labels, num = label(mask)
+          boxes = find_objects(labels)
+
+          for box in boxes:
+              if box is not None:
+                  y0, y1 = box[0].start, box[0].stop
+                  x0, x1 = box[1].start, box[1].stop
+                  # Vyrežeme zmenený výsek z nového obrázka
+                  crop = imageNew.crop((x0, y0, x1, y1))
+                  # Vložíme výsek na správnu pozíciu na frame_buf
+                  self.display.frame_buf.paste(crop, (x0, y0))
+
+          # Po všetkých zmenách vykreslíme len zmenené oblasti
+          self.display.draw_full(DisplayModes.GLD16)
