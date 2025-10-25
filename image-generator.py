@@ -43,6 +43,9 @@ imgDraw.text( [20,970], f"meniny: {namesdayFinder.find_nameday(datetime.now().da
 
 image_path = "export/image.png"
 
+img.save(image_path);
+exit()
+
 ep = Epaper()
 
 

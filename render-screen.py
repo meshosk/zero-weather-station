@@ -1,0 +1,50 @@
+from stuff.parts.weathericonrenderer import WeatherIconRenderer
+from pickle import TRUE
+from PIL import Image
+from stuff.parts.clockdate import ClockDate
+from stuff.namesday.nameday import NamedayFinderLanguage
+from stuff.epaper import Epaper
+import os
+
+# Because of rende debuging without unit, the resolution of the resulting image must be set here 
+width, height = 1872, 1404
+debug = TRUE
+
+language = NamedayFinderLanguage.SK
+
+# Main image, tjat will be rendered on e-paper
+# this file should generate 4bit grayscale image that can be used directly into wireshare eing display
+# image size for waveshare 7.8 HD epaper is 1872×1404 
+img = Image.new("L", (width, height), color=255)
+
+clock = ClockDate(scale=1.0, language=language)
+clock.draw_clock(img, position=(10, -150))
+
+
+# Part thats render actual weather info
+icon_renderer = WeatherIconRenderer(
+    json_path="export/weather-actual.json", # path to json
+    icons_dir="assets/weather-icons/icons/svg", # path to weather icons
+    scale=1.3 # scale of the icon
+)
+
+# Draw the info
+icon_renderer.render_icon(img, position=(1450, 20))  # veľkosť sa zistí automaticky
+
+# path to save the last image for partial redraw
+image_path = "export/image.png"
+
+# for debuging without unit, jet render and save the image
+if debug:
+    img.save(image_path)
+    exit()
+
+ep = Epaper()
+
+
+if os.path.exists(image_path):
+    ep.display.prev_frame = Image.open(image_path).convert("L")
+
+# draw with partial redraw
+ep.drawImage(img)
+img.save(image_path)
