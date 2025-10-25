@@ -11,7 +11,7 @@ docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash`
 ```
 
 # Setup
-To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups `IT8951` submodule.
+To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups (IT8951)[https://github.com/GregDMeyer/IT8951] and (weather-icon)[https://github.com/meshosk/weather-icons] submodule.
 
 ```
 sh ./install.sh
@@ -23,7 +23,7 @@ This should work on other devices too.
 1. enable SPI in `sudo raspi-config` no other addition to `/boot/config.txt`
 2. Download as local module `https://github.com/GregDMeyer/IT8951` and run setup
 3. check if all libraries in python has needed version and install other needed libraries
-4. set vcom value. for 7.8" HD is value -1.56
+4. set vcom value. for 7.8" HD is value -1.56 (-1.80 works better)
 5. try running following test script until it runs (tested and it runs on bulleye lite)
 6. script with SPI may need authorization to ise SPI, so run it with _sudo_ or add SPI group
 
@@ -60,9 +60,10 @@ display.draw_full(constants.DisplayModes.GC16)
 ```
 # How to run it?
 
-Just run `image-generator.py` with env in cron every minute like this:
+Just run `fetch-weather.py` (get weather data before first creen render) and `render-screen.py` with env in cron every minute or so like this:
 
 ```
-* * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python image-generator.py
+*/30 * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python fetch-weather.py
+* * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
 ```
 

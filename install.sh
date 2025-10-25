@@ -10,7 +10,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install --upgrade pip setuptools wheel
-pip install spidev numpy pillow scipy openmeteo-requests retry_requests requests-cache pandas
+pip install spidev numpy pillow scipy openmeteo_requests retry_requests requests_cache pandas
 pip install cairosvg
 
 # this should be pulled as submodule For cas it was not uncomment line below
@@ -19,7 +19,7 @@ cd IT8951
 pip install ./[rpi]
 cd ..
 
-pip install pytest-playwrightpip3 install scipy
-playwright install-deps
-playwright install chromiums
+# pip install pytest-playwrightpip3 install scipy
+# playwright install-deps
+# playwright install chromiums
 
