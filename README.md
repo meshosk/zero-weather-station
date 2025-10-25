@@ -7,7 +7,7 @@ Warn: Code generted wtih use of copilot (yeah, i'm lazy to do basic stuff...)
 Project consist of multiple parts that plyat together.
 
 ```
-docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash`
+docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash
 ```
 
 # Setup
@@ -66,5 +66,6 @@ Just run `fetch-weather.py` (get weather data before first creen render) and `re
 */30 * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python fetch-weather.py
 * * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
 ```
+
 
 
