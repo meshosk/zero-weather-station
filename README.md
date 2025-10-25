@@ -11,7 +11,7 @@ docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash`
 ```
 
 # Setup
-To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups (IT8951)[https://github.com/GregDMeyer/IT8951] and (weather-icon)[https://github.com/meshosk/weather-icons] submodule.
+To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups [IT8951](https://github.com/GregDMeyer/IT8951) and [weather-icon](https://github.com/meshosk/weather-icons) submodule.
 
 ```
 sh ./install.sh
@@ -66,4 +66,5 @@ Just run `fetch-weather.py` (get weather data before first creen render) and `re
 */30 * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python fetch-weather.py
 * * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
 ```
+
 
