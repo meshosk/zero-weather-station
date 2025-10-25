@@ -138,3 +138,5 @@ assets/tmp/*
 .DS_Store
 
 !.gitkeep
+
+.cache.sqlite
