@@ -8,7 +8,7 @@ import os
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
-debug = TRUE
+debug = False
 
 language = NamedayFinderLanguage.SK
 
@@ -18,7 +18,7 @@ language = NamedayFinderLanguage.SK
 img = Image.new("L", (width, height), color=255)
 
 clock = ClockDate(scale=1.0, language=language)
-clock.draw_clock(img, position=(10, -150))
+clock.draw_clock(img, position=(10, -70))
 
 
 # Part thats render actual weather info
@@ -29,7 +29,7 @@ icon_renderer = WeatherIconRenderer(
 )
 
 # Draw the info
-icon_renderer.render_icon(img, position=(1450, 20))  # veľkosť sa zistí automaticky
+icon_renderer.render_icon(img, position=(1480, 100))  # veľkosť sa zistí automaticky
 
 # path to save the last image for partial redraw
 image_path = "export/image.png"

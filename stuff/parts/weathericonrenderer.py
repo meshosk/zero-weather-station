@@ -11,7 +11,7 @@ class WeatherIconRenderer:
         self.scale = scale
 
 
-    def render_temperature_text(self, img, position, icon_size, scale, font_size=90):
+    def render_temperature_text(self, img, position, icon_size, scale, font_size=95):
     
         try:
             with open(self.json_path, "r", encoding="utf-8") as f:
@@ -26,7 +26,7 @@ class WeatherIconRenderer:
             except:
                 font = ImageFont.load_default()
             text_x = position[0]
-            text_y = position[1] + int(icon_size[1] * scale) + 10
+            text_y = position[1] + int(icon_size[1] * scale * 1.05)
             if temp is not None and apparent is not None:
                 text = f"{round(temp)}°C/{round(apparent)}°C"
                 draw.text((text_x, text_y), text, font=font, fill=0)
