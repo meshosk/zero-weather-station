@@ -3,7 +3,7 @@ from PIL import Image
 import os
 
 
-class WeatherIconRenderer:
+class WeatherNowIcon:
 
     def __init__(self, json_path="export/weather-actual.json", icons_dir="assets/weather-icons/svg", scale=1.0):
         self.json_path = json_path

@@ -1,4 +1,4 @@
-from stuff.parts.weathericonrenderer import WeatherIconRenderer
+from stuff.parts.WeatherNowIcon import WeatherNowIcon
 from pickle import TRUE
 from PIL import Image
 from stuff.parts.clockdate import ClockDate
@@ -6,9 +6,11 @@ from stuff.namesday.nameday import NamedayFinderLanguage
 from stuff.epaper import Epaper
 import os
 
+from stuff.parts.weather_hourly_graph import WeatherHourlyGraph
+
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
-debug = False
+debug = True
 
 language = NamedayFinderLanguage.SK
 
@@ -21,12 +23,21 @@ clock = ClockDate(scale=1.0, language=language)
 clock.draw_clock(img, position=(10, -70))
 
 
+
 # Part thats render actual weather info
-icon_renderer = WeatherIconRenderer(
+icon_renderer = WeatherNowIcon(
     json_path="export/weather-actual.json", # path to json
     icons_dir="assets/weather-icons/icons/svg", # path to weather icons
     scale=1.3 # scale of the icon
 )
+
+hourly = WeatherHourlyGraph(
+    weather_json_path="export/weather-actual.json",
+    position=(20, 880), 
+    size=(1800, 500) 
+)
+hourly.draw(img)
+
 
 # Draw the info
 icon_renderer.render_icon(img, position=(1480, 100))  # veľkosť sa zistí automaticky

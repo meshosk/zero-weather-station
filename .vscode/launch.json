@@ -1,5 +1,6 @@
 {
     "configurations": [
+
         {
             "name": "Docker: Python - General",
             "type": "docker",
@@ -13,7 +14,14 @@
                     }
                 ],
                 "projectType": "general"
-            }
+            },
+        },
+        {
+            "name": "Python: Render Screen",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/render-screen.py",
+            "console": "integratedTerminal"
         }
     ]
 }
