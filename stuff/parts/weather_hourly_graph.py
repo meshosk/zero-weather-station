@@ -3,6 +3,72 @@ from PIL import Image, ImageDraw, ImageFont
 import datetime
 
 class WeatherHourlyGraph:
+    def draw_precipitation_y_axis(self, draw, x0, y0, margin, plot_width, plot_height, max_precip):
+        """
+        Draws vertical grid lines and labels on the right Y axis for every 5mm of precipitation.
+        """
+        try:
+            font = ImageFont.truetype("assets/fonts/raela-grotesque/RaelaGrotesqueRegular-e9476.ttf", 20)
+        except:
+            font = ImageFont.load_default()
+        # Precipitation bars use up to 40% of plot height, so scale accordingly
+        max_precip = max(5, int(round(max_precip/5.0))*5)
+        bar_area_height = plot_height * 0.4
+        y_base = y0 + margin + plot_height
+        x_right = x0 + margin + plot_width
+        for mm in range(5, max_precip+1, 5):
+            # y position for this precipitation value (0 at bottom, max_precip at top of bar area)
+            y = y_base - (mm / max_precip) * bar_area_height
+            # Draw only the label on right axis (no tick)
+            draw.text((x_right+12, y-10), f"{mm} mm", font=font, fill=64)
+            # Optionally, draw a faint horizontal grid line across the bar area
+            draw.line([(x_right-10, y), (x0 + margin, y)], fill=200, width=1)
+
+    def draw_precipitation_bars(self, draw, precip, idx_to_x, y0, margin, plot_height):
+        if not precip:
+            return
+        max_precip = max(precip) if max(precip) > 0 else 1
+        n = len(precip)
+        # Calculate bar width so that bars touch (fill the plot width)
+        plot_width = idx_to_x(n-1) - idx_to_x(0) if n > 1 else 1
+        bar_width = max(1, int(round(plot_width / (n-1)))) if n > 1 else 8
+        # Try to get precipitation probability
+        prob = self.hourly.get("precipitation_probability", [])
+        # Simulate 70% transparency: new = 0.3*orig + 0.7*bar
+        def blend(bg, fg, alpha):
+            return int(round((1-alpha)*bg + alpha*fg))
+        for i, val in enumerate(precip):
+            x = int(round(idx_to_x(i)))
+            # Height of bar proportional to precipitation
+            bar_h = int((val / max_precip) * (plot_height * 0.4))  # up to 40% of graph height
+            y_base = int(round(y0 + margin + plot_height))
+            y_top = int(round(y_base - bar_h))
+            # Draw precipitation bar with simulated transparency (10% darker)
+            for px in range(int(x - bar_width // 2), int(x + bar_width // 2 + 1)):
+                for py in range(y_top, y_base):
+                    try:
+                        bg = draw.im.getpixel((px, py))
+                    except Exception:
+                        bg = 255
+                    bar_gray = 20  # 128 - 10% of 128 ≈ 115
+                    color = blend(bg, bar_gray, 0.7)
+                    draw.point((px, py), fill=color)
+            # Draw probability overlay if available
+            if i < len(prob):
+                prob_val = max(0, min(100, prob[i]))
+                # Height of overlay proportional to probability (0-100%)
+                overlay_h = int((prob_val / 100) * (plot_height * 0.4))
+                overlay_y_top = int(round(y_base - overlay_h))
+                # Make overlay 20% lighter: use a lighter gray (128 + 20% of (255-128) ≈ 154)
+                overlay_gray = 154
+                for px in range(int(x - bar_width // 2), int(x + bar_width // 2 + 1)):
+                    for py in range(overlay_y_top, y_base):
+                        try:
+                            bg = draw.im.getpixel((px, py))
+                        except Exception:
+                            bg = 255
+                        color = blend(bg, overlay_gray, 0.7)
+                        draw.point((px, py), fill=color)
 
     def draw_horizontal_grid_lines(self, draw, x0, y0, margin, plot_width, plot_height, plot_min, plot_max, temp_to_y):
         # Draw horizontal grid lines every 10°C starting from 0, with labels
@@ -152,6 +218,13 @@ class WeatherHourlyGraph:
 
         # (moved: all hour tick logic is now in draw_axes_and_labels)
 
+        # Draw precipitation bars (if available)
+        precip = self.hourly.get("precipitation", [])
+        self.draw_precipitation_bars(draw, precip, idx_to_x, y0, margin, plot_height)
+        # Draw right Y axis for precipitation if data available
+        if precip:
+            max_precip = max(precip) if max(precip) > 0 else 1
+            self.draw_precipitation_y_axis(draw, x0, y0, margin, plot_width, plot_height, max_precip)
         self.draw_horizontal_grid_lines(draw, x0, y0, margin, plot_width, plot_height, plot_min, plot_max, temp_to_y)
         self.draw_axes_and_labels(draw, x0, y0, margin, plot_width, plot_height, plot_min, plot_max, temp_to_y, idx_to_x, dt_times, n)
 

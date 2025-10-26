@@ -10,7 +10,7 @@ from stuff.parts.weather_hourly_graph import WeatherHourlyGraph
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
-debug = True
+debug = False
 
 language = NamedayFinderLanguage.SK
 
@@ -33,8 +33,8 @@ icon_renderer = WeatherNowIcon(
 
 hourly = WeatherHourlyGraph(
     weather_json_path="export/weather-actual.json",
-    position=(20, 880), 
-    size=(1800, 500) 
+    position=(25, 880), 
+    size=(1750, 500) 
 )
 hourly.draw(img)
 
