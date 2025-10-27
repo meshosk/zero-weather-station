@@ -19,18 +19,20 @@ class Epaper():
           # def cleat whole display white
           self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
 
-     def drawImage(self, image: Image):
+     def drawImage(self, image: Image, fullRedraw: bool = False):
+          # size of display
+          dims = (self.display.width, self.display.height)
 
-        # size of display
-        dims = (self.display.width, self.display.height)
+          # restricitng image size. Rendered image on display will not exceed its dimensions
+          image.thumbnail(dims)
+          # this sets up possition of image on screenn
+          paste_coords = [dims[i] - image.size[i] for i in (0,1)]  # align image with bottom of display
+          self.display.frame_buf.paste(image, paste_coords)
 
-        # restricitng image size. Rendered image on display will not exceed its dimensions
-        image.thumbnail(dims)
-        # this sets up possition of image on screenn
-        paste_coords = [dims[i] - image.size[i] for i in (0,1)]  # align image with bottom of display
-        self.display.frame_buf.paste(image, paste_coords)
-
-        self.display.draw_partial(DisplayModes.GLD16)
+          if fullRedraw:
+               self.display.draw_full(DisplayModes.GC16)
+          else:
+               self.display.draw_partial(DisplayModes.GLD16)
 
      def reset_screen(self):
           """
