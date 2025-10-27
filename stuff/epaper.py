@@ -31,3 +31,18 @@ class Epaper():
         self.display.frame_buf.paste(image, paste_coords)
 
         self.display.draw_partial(DisplayModes.GLD16)
+
+     def reset_screen(self):
+          """
+          Resetuje e-ink displej sekvenciou plných prekreslení (biela, čierna, biela),
+          aby sa odstránilo ghostovanie a pretekanie.
+          """
+          # Plná biela
+          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
+          self.display.draw_full(DisplayModes.GC16)
+          # Plná čierna
+          self.display.frame_buf.paste(0x00, box=(0, 0, self.display.width, self.display.height))
+          self.display.draw_full(DisplayModes.GC16)
+          # Opäť biela
+          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
+          self.display.draw_full(DisplayModes.GC16)
