@@ -32,7 +32,7 @@ class Epaper():
           if fullRedraw:
                self.display.draw_full(DisplayModes.GC16)
           else:
-               self.display.draw_partial(DisplayModes.GLD16)
+               self.display.draw_partial(DisplayModes.GLR16) #GLD16
 
      def reset_screen(self):
           """
