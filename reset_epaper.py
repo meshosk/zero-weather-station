@@ -1,6 +1,3 @@
-epd = Epaper()
-epd.reset_screen()
-
 from stuff.epaper import Epaper
 from PIL import Image
 import os
