@@ -11,7 +11,10 @@ docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash
 ```
 
 # Setup
-To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups [IT8951](https://github.com/GregDMeyer/IT8951) and [weather-icon](https://github.com/meshosk/weather-icons) submodule.
+To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment. Make sure that submodules were downloaded in `external` folder. Ther should be these ones:
+- [IT8951](https://github.com/GregDMeyer/IT8951)
+- [weather-icon](https://github.com/meshosk/weather-icons)
+- [nameday-api](https://github.com/xnekv03/nameday-api)
 
 ```
 bash install.sh
