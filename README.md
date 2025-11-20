@@ -14,7 +14,7 @@ docker run --rm -it -v ${PWD}:/mnt/app  -w "/mnt/app/" python:latest bash
 To install&setup all parts run `install.sh` script first. This will create virtaual python eviroment, download needed modules and setups [IT8951](https://github.com/GregDMeyer/IT8951) and [weather-icon](https://github.com/meshosk/weather-icons) submodule.
 
 ```
-sh ./install.sh
+bash install.sh
 ```
 
 # Waveshare 7.8" HD e-ink make-it-run steps for zero 2W
