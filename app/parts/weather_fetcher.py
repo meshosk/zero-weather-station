@@ -5,7 +5,7 @@ from retry_requests import retry
 import json
 
 class WeatherFetcher:
-    def __init__(self, latitude, longitude, export_path="export/weather-actual.json"):
+    def __init__(self, latitude, longitude, export_path="assets/weather-actual.json"):
         self.latitude = latitude
         self.longitude = longitude
         self.export_path = export_path

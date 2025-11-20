@@ -11,11 +11,11 @@ source .venv/bin/activate
 
 pip install --upgrade pip setuptools wheel
 pip install spidev numpy pillow scipy openmeteo_requests retry_requests requests_cache pandas
-pip install cairosvg
+pip install cairosvg ijson
 
 # this should be pulled as submodule For cas it was not uncomment line below
 # git clone https://github.com/GregDMeyer/IT8951
-cd IT8951
+cd external/IT8951
 pip install ./[rpi]
 cd ..
 
@@ -23,3 +23,5 @@ cd ..
 # playwright install-deps
 # playwright install chromiums
 
+# now we run the namedays json fix script
+python scripts/fix_namedays_json.py

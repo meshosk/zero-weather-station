@@ -5,7 +5,7 @@ import os
 
 class WeatherNowIcon:
 
-    def __init__(self, json_path="export/weather-actual.json", icons_dir="assets/weather-icons/svg", scale=1.0):
+    def __init__(self, json_path="assets/weather-actual.json", icons_dir="external/weather-icons/svg", scale=1.0):
         self.json_path = json_path
         self.icons_dir = icons_dir
         self.scale = scale
@@ -28,7 +28,7 @@ class WeatherNowIcon:
             text_x = position[0]
             text_y = position[1] + int(icon_size[1] * scale * 1.05)
             if temp is not None and apparent is not None:
-                text = f"{round(temp)}°C/{round(apparent)}°C"
+                text = f"{round(temp)}°/{round(apparent)}°" # removed celsius to save some space
                 draw.text((text_x, text_y), text, font=font, fill=0)
                 text_y += font_size + 5
             

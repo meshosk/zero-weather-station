@@ -1,4 +1,4 @@
-from stuff.epaper import Epaper
+from app.epaper import Epaper
 from PIL import Image
 import os
 
@@ -6,7 +6,7 @@ epd = Epaper()
 epd.reset_screen()
 
 # Zobraz obrazok z export/image.png, ak existuje
-image_path = "export/image.png"
+image_path = "assets/image.png"
 if os.path.exists(image_path):
 	try:
 		img = Image.open(image_path)

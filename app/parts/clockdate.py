@@ -1,11 +1,11 @@
 from PIL import ImageDraw, ImageFont
 from datetime import datetime
 
-from stuff.namesday.nameday import NamedayFinder, NamedayFinderLanguage
+from app.parts.nameday import NamedayFinder, NamedayFinderLanguage
 
 class ClockDate():
      
-     def __init__(self, scale=1.0, language=NamedayFinderLanguage.SK, nameday_json_path="stuff/namesday/nameday.json", position=(20, 20)):
+     def __init__(self, scale=1.0, language=NamedayFinderLanguage.SK, nameday_json_path="assets/namedays_fixed.json", position=(20, 20)):
           self.scale = scale
           self.language = language
           self.days_array = ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"]
@@ -40,7 +40,7 @@ class ClockDate():
           font_size_nameday = int(140 * self.scale)
           smallFont = ImageFont.truetype(font_path_light, font_size_nameday)
           today = datetime.now()
-          nameday = self.namedayFinder.find_nameday(today.day, today.month, self.language)
+          nameday = self.namedayFinder.get_nameday_name(today.day, today.month, self.language)
           if nameday:
                nameday_str = f"meniny: {nameday}"
           else:

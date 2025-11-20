@@ -1,12 +1,12 @@
-from stuff.parts.WeatherNowIcon import WeatherNowIcon
+from app.parts.WeatherNowIcon import WeatherNowIcon
 from pickle import TRUE
 from PIL import Image
-from stuff.parts.clockdate import ClockDate
-from stuff.namesday.nameday import NamedayFinderLanguage
-from stuff.epaper import Epaper
+from app.parts.clockdate import ClockDate
+from app.parts.nameday import NamedayFinderLanguage
+from app.epaper import Epaper
 import os
 
-from stuff.parts.weather_hourly_graph import WeatherHourlyGraph
+from app.parts.weather_hourly_graph import WeatherHourlyGraph
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
@@ -26,13 +26,13 @@ clock.draw_clock(img, position=(10, -70))
 
 # Part thats render actual weather info
 icon_renderer = WeatherNowIcon(
-    json_path="export/weather-actual.json", # path to json
-    icons_dir="assets/weather-icons/icons/svg", # path to weather icons
+    json_path="assets/weather-actual.json", # path to json
+    icons_dir="external/weather-icons/icons/svg", # path to weather icons
     scale=1.3 # scale of the icon
 )
 
 hourly = WeatherHourlyGraph(
-    weather_json_path="export/weather-actual.json",
+    weather_json_path="assets/weather-actual.json",
     position=(25, 880), 
     size=(1750, 500) 
 )
@@ -43,7 +43,7 @@ hourly.draw(img)
 icon_renderer.render_icon(img, position=(1480, 100))  # veľkosť sa zistí automaticky
 
 # path to save the last image for partial redraw
-image_path = "export/image.png"
+image_path = "assets/image.png"
 
 # for debuging without unit, jet render and save the image
 if debug:

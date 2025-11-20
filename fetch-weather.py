@@ -2,7 +2,7 @@
 # cron runs it in separate process, every 30 minutes?
 # actual code runs on non-comercial API
 
-from stuff.parts.weatherservice.weather_fetcher import WeatherFetcher
+from app.parts.weather_fetcher import WeatherFetcher
 
 # Here you put our GPS coordinates
 latitude = 49.2231
