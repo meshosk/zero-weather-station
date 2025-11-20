@@ -17,11 +17,11 @@ pip install cairosvg ijson
 # git clone https://github.com/GregDMeyer/IT8951
 cd external/IT8951
 pip install ./[rpi]
-cd ..
+cd ../..
 
 # pip install pytest-playwrightpip3 install scipy
 # playwright install-deps
 # playwright install chromiums
 
 # now we run the namedays json fix script
-python scripts/fix_namedays_json.py
+python fix_namedays_json.py
