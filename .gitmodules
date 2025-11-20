@@ -1,6 +1,9 @@
-[submodule "IT8951"]
-        path = IT8951
+[submodule "external/IT8951"]
+        path = external/IT8951
         url = https://github.com/GregDMeyer/IT8951.git
-[submodule "assets/weather-icons"]
-	path = assets/weather-icons
+[submodule "external/weather-icons"]
+	path = external/weather-icons
 	url = https://github.com/meshosk/weather-icons.git
+[submodule "external/nameday-api"]
+	path = external/nameday-api
+	url = https://github.com/xnekv03/nameday-api
