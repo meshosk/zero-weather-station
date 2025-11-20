@@ -1,9 +1,9 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt upgrade
+sudo apt update -y
+sudo apt upgrade -y
 
-sudo apt install mc pip -y
+sudo apt install pip -y
 
 python -m venv .venv
 
