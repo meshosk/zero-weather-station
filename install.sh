@@ -24,4 +24,4 @@ cd ../..
 # playwright install chromiums
 
 # now we run the namedays json fix script
-python fix_namedays_json.py
+python fix_namedays_json.py external/nameday-api/json/namedays.json assets/namedays_fixed.json

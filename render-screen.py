@@ -12,7 +12,7 @@ from app.persistent_counter import PersistentCounter
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
-debug = False
+debug = True
 
 language = NamedayFinderLanguage.SK
 
