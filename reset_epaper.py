@@ -1,6 +1,9 @@
 from app.epaper import Epaper
 from PIL import Image
 import os
+import time
+
+time.sleep(30) #make delay from classic redraw
 
 epd = Epaper()
 epd.reset_screen()
