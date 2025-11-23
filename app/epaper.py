@@ -34,12 +34,13 @@ class Epaper():
           else:
                self.display.draw_partial(DisplayModes.GLR16) #GLD16
 
-     def white_flush(self, image: Image):
-          # simple white flush
-          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
-          self.display.draw_full(DisplayModes.GC16)
 
-          self.drawImage(image, fullRedraw=True)
+     def white_flush(self, image: Image):
+          # Create a new white image matching display size
+          white_img = Image.new("L", (self.display.width, self.display.height), color=0xFF)
+          self.drawImage(white_img, fullRedraw=True)
+          # Draw the provided image after white flush
+          self.drawImage(image, fullRedraw=False)
 
 
      def reset_screen(self):

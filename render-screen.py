@@ -12,7 +12,7 @@ from app.persistent_counter import PersistentCounter
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
-debug = True
+debug = False
 
 language = NamedayFinderLanguage.SK
 
@@ -55,7 +55,7 @@ if debug:
 
 
 # Persistent counter for render flush
-counter = PersistentCounter("assets/counter.txt", modulo=500)
+counter = PersistentCounter("assets/counter.txt", 500)
 
 ep = Epaper()
 
@@ -63,7 +63,7 @@ if os.path.exists(image_path):
     ep.display.prev_frame = Image.open(image_path).convert("L")
 
 # Every 500th run, do a white flush
-if counter.is_modulo():
+if counter.increment_and_check():
     # white flush to avoid ghosting and bleeding
     ep.white_flush(img)
 else:
