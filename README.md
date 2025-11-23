@@ -67,7 +67,10 @@ Just run `fetch-weather.py` (get weather data before first creen render) and `re
 
 ```
 */30 * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python fetch-weather.py
-* * * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
+
+* 1-23 * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
+1-59 0 * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python render-screen.py
+
 0 0 * * * cd /home/THE-USER/zero-weather-station &&  .venv/bin/python reset_epaper.py
 ```
 

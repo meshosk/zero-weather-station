@@ -34,6 +34,14 @@ class Epaper():
           else:
                self.display.draw_partial(DisplayModes.GLR16) #GLD16
 
+     def white_flush(self, image: Image):
+          # simple white flush
+          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
+          self.display.draw_full(DisplayModes.GC16)
+
+          self.drawImage(image, fullRedraw=True)
+
+
      def reset_screen(self):
           """
           Resetuje e-ink displej sekvenciou plných prekreslení (biela, čierna, biela),

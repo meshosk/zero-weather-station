@@ -132,7 +132,10 @@ cython_debug/
 __pycache__
 
 export/*
-assets/tmp/*
+assets/image.png
+assets/namedays_fixed.json
+assets/counter.txt
+assets/weather-actual.json
 
 .DS_Store
 

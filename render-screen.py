@@ -6,7 +6,9 @@ from app.parts.nameday import NamedayFinderLanguage
 from app.epaper import Epaper
 import os
 
+
 from app.parts.weather_hourly_graph import WeatherHourlyGraph
+from app.persistent_counter import PersistentCounter
 
 # Because of rende debuging without unit, the resolution of the resulting image must be set here 
 width, height = 1872, 1404
@@ -50,12 +52,23 @@ if debug:
     img.save(image_path)
     exit()
 
-ep = Epaper()
 
+
+# Persistent counter for render flush
+counter = PersistentCounter("assets/counter.txt", modulo=500)
+
+ep = Epaper()
 
 if os.path.exists(image_path):
     ep.display.prev_frame = Image.open(image_path).convert("L")
 
-# draw with partial redraw
+# Every 500th run, do a white flush
+if counter.is_modulo():
+    # white flush to avoid ghosting and bleeding
+    ep.white_flush(img)
+else:
+    # draw with partial redraw
+    ep.drawImage(img)
+    
 ep.drawImage(img)
 img.save(image_path)
