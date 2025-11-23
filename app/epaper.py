@@ -1,7 +1,7 @@
 from IT8951.interface import EPD
 from IT8951.display import AutoEPDDisplay, VirtualEPDDisplay
 from IT8951.constants import DisplayModes
-
+import time
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageChops
@@ -39,8 +39,9 @@ class Epaper():
           # Create a new white image matching display size
           white_img = Image.new("L", (self.display.width, self.display.height), color=0xFF)
           self.drawImage(white_img, fullRedraw=True)
+          time.sleep(0.2)
           # Draw the provided image after white flush
-          self.drawImage(image, fullRedraw=False)
+          self.drawImage(image, fullRedraw=True)
 
 
      def reset_screen(self):
