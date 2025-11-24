@@ -13,7 +13,7 @@ image_path = "assets/image.png"
 if os.path.exists(image_path):
 	try:
 		img = Image.open(image_path)
-		epd.drawImage(img, fullRedraw=True)
+		epd.drawImage(img, fullRedraw=False)
 		print(f"Image {image_path} displayed with full redraw.")
 	except Exception as e:
 		print(f"Failed to display image: {e}")

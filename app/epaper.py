@@ -12,7 +12,7 @@ class Epaper():
      def __init__(self):
           # init display, change const params or attrinbs to fit your display
           # size of display is auto detected
-          self.display = AutoEPDDisplay(vcom=-1.80, spi_hz=24000000) 
+          self.display = AutoEPDDisplay(vcom=-1.56, spi_hz=24000000) 
          # self.display = VirtualEPDDisplay()
 
      def fillScreen(self, color=0xFF):
@@ -39,9 +39,9 @@ class Epaper():
      def white_flush(self, image: Image):
           # Create a new white image matching display size
           self.fillScreen(0xFF)
-          time.sleep(0.3)
+          time.sleep(0.2)
           # Draw the provided image after white flush
-          self.drawImage(image, fullRedraw=True)
+          self.drawImage(image, fullRedraw=False)
 
 
      def reset_screen(self):
@@ -50,12 +50,10 @@ class Epaper():
           aby sa odstránilo ghostovanie a pretekanie.
           """
           self.display.draw_full(DisplayModes.INIT)
-          # Plná biela
-          self.fillScreen(0xFF)
-          time.sleep(0.3)
+          time.sleep(0.4)
           # Plná čierna
           self.fillScreen(0x00)
-          time.sleep(0.3)
+          time.sleep(0.2)
           # Opäť biela
           self.fillScreen(0xFF)
-          time.sleep(0.3)
+          time.sleep(0.2)
