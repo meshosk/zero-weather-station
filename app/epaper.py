@@ -49,6 +49,7 @@ class Epaper():
           Resetuje e-ink displej sekvenciou plných prekreslení (biela, čierna, biela),
           aby sa odstránilo ghostovanie a pretekanie.
           """
+          self.display.draw_full(DisplayModes.INIT)
           # Plná biela
           self.fillScreen(0xFF)
           time.sleep(0.3)
