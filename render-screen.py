@@ -70,5 +70,4 @@ else:
     # draw with partial redraw
     ep.drawImage(img)
     
-ep.drawImage(img)
 img.save(image_path)

@@ -17,7 +17,8 @@ class Epaper():
 
      def fillScreen(self, color=0xFF):
           # def cleat whole display white
-          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
+          img = Image.new("L", (self.display.width, self.display.height), color)
+          self.drawImage(img, fullRedraw=True)
 
      def drawImage(self, image: Image, fullRedraw: bool = False):
           # size of display
@@ -37,9 +38,8 @@ class Epaper():
 
      def white_flush(self, image: Image):
           # Create a new white image matching display size
-          white_img = Image.new("L", (self.display.width, self.display.height), color=0xFF)
-          self.drawImage(white_img, fullRedraw=True)
-          time.sleep(0.2)
+          self.fillScreen(0xFF)
+          time.sleep(0.3)
           # Draw the provided image after white flush
           self.drawImage(image, fullRedraw=True)
 
@@ -50,11 +50,11 @@ class Epaper():
           aby sa odstránilo ghostovanie a pretekanie.
           """
           # Plná biela
-          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
-          self.display.draw_full(DisplayModes.GC16)
+          self.fillScreen(0xFF)
+          time.sleep(0.3)
           # Plná čierna
-          self.display.frame_buf.paste(0x00, box=(0, 0, self.display.width, self.display.height))
-          self.display.draw_full(DisplayModes.GC16)
+          self.fillScreen(0x00)
+          time.sleep(0.3)
           # Opäť biela
-          self.display.frame_buf.paste(0xFF, box=(0, 0, self.display.width, self.display.height))
-          self.display.draw_full(DisplayModes.GC16)
+          self.fillScreen(0xFF)
+          time.sleep(0.3)
